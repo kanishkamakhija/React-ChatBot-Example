@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import User1 from './User1.js';
+import User from './User.js';
 
 class App extends Component {
   
@@ -18,9 +18,8 @@ class App extends Component {
   		}
 
 	updateMessage = (name, msg) => {
-      const newMsg = {username : name, text : msg}
-    	this.setstate((currState) => ({messages : [...currState, newMsg]}))
-    }
+    	this.setState((currState) => ({messages : [...currState.messages, {username : name, text : msg}]}))
+    };
 
   isDisabled = (event) => {
     return false;
@@ -35,8 +34,10 @@ class App extends Component {
           <h1 className="App-title">ReactND - Coding Practice</h1>
         </header>
         <div className="container">
-         <User1 username={this.users[0].username} messages={this.state.messages} disabled={this.isDisabled} updateMessage={this.updateMessage}/>
-    	 <User1 username={this.users[1].username} messages={this.state.messages} disabled={this.isDisabled} updateMessage={this.updateMessage} />  
+    		{this.users.map((user) => (
+            	<User username={user.username} messages={this.state.messages} disabled={this.isDisabled} updateMessage={this.updateMessage}/>
+            ))}
+  
         </div>
       </div>
     );
